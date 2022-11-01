@@ -6,7 +6,7 @@ with open(path.join(path.dirname(path.abspath(__file__)), 'README.rst')) as f:
 
 setup(
     name             = 'png_overlay',
-    version          = '0.2',
+    version          = '1.0.0',
     description      = 'An app to create an overlay PNG with two input PNGs',
     long_description = readme,
     author           = 'FNNDSC',

@@ -156,8 +156,12 @@ class Png_overlay(ChrisApp):
                 background = Image.open(background_path)
                 overlay = Image.open(overlay_path)
                 
-                print(f"Shape of background image is {background.size}")
-                print(f"Shape of overlay image is {overlay.size}")
+                # Print image details to std. output
+                print(f"\nReading images from {dir_name}")
+                print(f"Shape of {options.background} is {background.size}")
+                print(f"Shape of {options.overlay} is {overlay.size}")
+                
+                
                 overlay = overlay.resize(background.size)
                 background.paste(overlay, (0,0),mask=overlay)
                 background.save(os.path.join(output_dir,options.outputFileName))
