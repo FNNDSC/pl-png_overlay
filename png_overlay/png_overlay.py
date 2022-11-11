@@ -32,7 +32,10 @@ Gstr_synopsis = """
 
     SYNOPSIS
 
-        docker run --rm fnndsc/pl-png_overlay png_overlay                     \\
+        docker run --rm fnndsc/pl-png_overlay png_overlay               \\
+            [-b|--background <bgFileName>]                              \\
+            [-o|--overlay <overlayFileName>]                            \\
+            [-s|--outputFileName <opFileName>]                          \\
             [-h] [--help]                                               \\
             [--json]                                                    \\
             [--man]                                                     \\
@@ -49,7 +52,7 @@ Gstr_synopsis = """
 
             docker run --rm -u $(id -u)                             \
                 -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
-                fnndsc/pl-png_overlay png_overlay                        \
+                fnndsc/pl-png_overlay png_overlay                   \
                 /incoming /outgoing
 
     DESCRIPTION
@@ -57,6 +60,18 @@ Gstr_synopsis = """
         `png_overlay` ...
 
     ARGS
+    
+        [-b|--background <bgFileName>]
+        Name of the input background file.
+        Default is 'leg.png'
+        
+        [-o|--overlay <overlayFileName>]
+        Name of the input overlay/mask file.
+        Default is 'composite.png'
+        
+        [-s|--outputFileName <opFileName>]
+        Name of the output file.
+        Default is 'overlay.png'
 
         [-h] [--help]
         If specified, show help message and exit.
@@ -119,21 +134,21 @@ class Png_overlay(ChrisApp):
                             dest         = 'background',
                             type         = str,
                             optional     = True,
-                            help         = 'Input file filter',
+                            help         = 'Input background file name',
                             default      = 'leg.png')
                             
         self.add_argument(  '--overlay','-o',
                             dest         = 'overlay',
                             type         = str,
                             optional     = True,
-                            help         = 'Input file filter',
+                            help         = 'Input overlay file name',
                             default      = 'composite.png')
                             
         self.add_argument(  '--outputFileName','-s',
                             dest         = 'outputFileName',
                             type         = str,
                             optional     = True,
-                            help         = 'Input file filter',
+                            help         = 'Output file name',
                             default      = 'overlay.png')
                             
     def run(self, options):
@@ -156,13 +171,13 @@ class Png_overlay(ChrisApp):
                 background = Image.open(background_path)
                 overlay = Image.open(overlay_path)
                 
+                
                 # Print image details to std. output
                 print(f"\nReading images from {dir_name}")
                 print(f"Shape of {options.background} is {background.size}")
                 print(f"Shape of {options.overlay} is {overlay.size}")
                 
-                
-                overlay = overlay.resize(background.size)
+                overlay = overlay.resize(background.size,Image.ANTIALIAS)
                 background.paste(overlay, (0,0),mask=overlay)
                 background.save(os.path.join(output_dir,options.outputFileName))
 

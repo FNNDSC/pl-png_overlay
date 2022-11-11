@@ -34,6 +34,9 @@ Usage
 .. code::
 
     docker run --rm fnndsc/pl-png_overlay png_overlay
+        [-b|--background <bgFileName>]                              
+        [-o|--overlay <overlayFileName>]                            
+        [-s|--outputFileName <opFileName>]                          
         [-h|--help]
         [--json] [--man] [--meta]
         [--savejson <DIR>]
@@ -46,6 +49,18 @@ Arguments
 ~~~~~~~~~
 
 .. code::
+
+    [-b|--background <bgFileName>]
+    Name of the input background file.
+    Default is 'leg.png'
+        
+    [-o|--overlay <overlayFileName>]
+    Name of the input overlay/mask file.
+    Default is 'composite.png'
+        
+    [-s|--outputFileName <opFileName>]
+    Name of the output file.
+    Default is 'overlay.png'
 
     [-h] [--help]
     If specified, show help message and exit.
