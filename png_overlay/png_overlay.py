@@ -101,7 +101,7 @@ class Png_overlay(ChrisApp):
     An app to create an overlay PNG with two input PNGs
     """
     PACKAGE                 = __package__
-    TITLE                   = 'A ChRIS plugin app'
+    TITLE                   = 'A ChRIS plugin app to create an overlay PNG with two input PNGs'
     CATEGORY                = ''
     TYPE                    = 'ds'
     ICON                    = ''   # url of an icon image
